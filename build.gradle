@@ -30,6 +30,9 @@ dependencies {
 
 //	테스트를 위한 의존성
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+//	오토 리런
+	implementation 'org.springframework.boot:spring-boot-devtools'
 }
 
 tasks.named('test') {
