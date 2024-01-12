@@ -1,5 +1,6 @@
 package com.encore.basic.controller;
 
+import com.encore.basic.domain.Hello;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,18 +14,38 @@ public class HelloController {
 //    responseBody가 없고,
 //    return 타입이 String 이면 template 밑에 html 파일 리턴
 
-    @GetMapping("string")
+    //    @GetMapping("string")
+    @RequestMapping(value = "string", method = RequestMethod.GET)
     @ResponseBody
-    public String helloString(){return "hello_string";}
+    public String helloString() {
+        return "hello_string";
+    }
+
+
+//    Request 처리
+//    1-1) Paramiter
+//    1-2) path valuable 방식
+
+//    Respon 처리
+//    Json
+//    X-www 데이터 처리
 
 
     @GetMapping("json")
     @ResponseBody
-    public String helloJson(){return "hello_string";}
+    public Hello helloJson() {
+        Hello hello = new Hello();
+        hello.setName("세종");
+        hello.setEmail("segjon@naver.com");
+        hello.setPassword("1234");
+        return hello;
+    }
 
 
     @GetMapping("screen")
-    public String helloScreen(){return "screen";}
+    public String helloScreen() {
+        return "screen";
+    }
 
 
     @GetMapping("screen-model-param")
@@ -36,7 +57,7 @@ public class HelloController {
         return "screen";
     }
 
-//    pathvariable 방식은 url을 통해 자원의 구조를 명확하게 표현할 수 있다.
+    //    pathvariable 방식은 url을 통해 자원의 구조를 명확하게 표현할 수 있다.
 //    좀 더 RestFul API 디자인에 적합.
     @GetMapping("screen-model-path/{id}")   // 숫자 형태로 받음. (int)
     public String helloScreenModelPath(@PathVariable int id, Model model) {
@@ -45,5 +66,83 @@ public class HelloController {
     }
 
 
+//    From 태그로 x-www 데이터 처리
+    @GetMapping("form-screen")
+    @PostMapping("/form-post-handle")
 
+
+//    json 데이터 처리
+
+    @GetMapping("json-screen")
+    @PostMapping("json-post-handle")
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
