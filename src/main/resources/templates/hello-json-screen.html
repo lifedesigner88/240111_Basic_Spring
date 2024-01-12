@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Hello-json-screen</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-</head>
+
 <body>
 <form id="myFrom">
     <label> JSON-SCREEN
@@ -17,17 +17,20 @@
 <script>
     async function sendData(){
         const jsonData = {
-            name: document.getElementById("name"),
-            email: document.getElementById("email"),
-            password: document.getElementById("password"),
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value
         };
-
-        const reponse = await axios({
-            method: 'POST',
-            url: "http://localhost:8080/hello/json-post-handle",
-            data: JSON.stringify(jsonData),
-            header: {'Content-type': 'application/json'}
-        });
+        try {
+            const response = await axios({
+                method: 'POST',
+                url: "json-post-handle3",
+                data: JSON.stringify(jsonData),
+                headers: {'Content-type': 'application/json'}
+            });
+            window.location.href = "screen";
+            console.log(response);
+        } catch (e){console.log(e)}
     }
 </script>
 </body>

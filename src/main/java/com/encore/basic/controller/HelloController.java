@@ -3,6 +3,7 @@ package com.encore.basic.controller;
 import Print.Print;
 import com.encore.basic.domain.Hello;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -61,7 +62,7 @@ public class HelloController extends Print {
         return "screen";
     }
 
-    //    pathvariable 방식은 url을 통해 자원의 구조를 명확하게 표현할 수 있다.
+//    pathvariable 방식은 url을 통해 자원의 구조를 명확하게 표현할 수 있다.
 //    좀 더 RestFul API 디자인에 적합.
     @GetMapping("screen-model-path/{id}")   // 숫자 형태로 받음. (int)
     public String helloScreenModelPath(@PathVariable int id, Model model) {
@@ -70,7 +71,11 @@ public class HelloController extends Print {
     }
 
 
+
+
 //    From 태그로 x-www 데이터 처리
+//////////////////////////////////////////////////////////////////////////////////////////////
+
     @GetMapping("form-screen")
     public String helloFormScreen() {
         return "hello-form-screen";
@@ -89,24 +94,76 @@ public class HelloController extends Print {
         return "정상처리";
     }
 
+    @PostMapping("form-post-handle2")
+    @ResponseBody
+//    Spring Hello 클래스의 인스턴스를 자동 매핑하여 생성
+//    form-data 형식 즉, x-www-url인코딩 형식의 경우 사용.
+//    이를 데이터 바인딩이라 부른다. (Hello클래스에 setter필수) (Dto 객체를 통해)
+    public String handleFormPost2(Hello hello) {
+        print(hello);
+        return "정상처리";
+    }
+
+
 
 //    json 데이터 처리
+//////////////////////////////////////////////////////////////////////////////////////////////
+
     @GetMapping("json-screen")
     public String jsonScrean(){
         return "hello-json-screen";
     }
 
 
+
     @PostMapping("json-post-handle")
     @ResponseBody
 //    RequestBody는 json으로 포스트 요청이 왔을 때 body에서 data를 꺼내기 위해 사용
+//    String으로 받을 수도 있다.
     public String jsonPostHandle1(@RequestBody Map<String, String> body){
 
         print(body.get("name"));
         print(body.get("email"));
         print(body.get("password"));
-        return "정상처리";
+
+        Hello hello = new Hello();
+        hello.setName(body.get("name"));
+        hello.setEmail(body.get("email"));
+        hello.setPassword(body.get("password"));
+
+        return "OK";
     }
+
+
+    @PostMapping("json-post-handle2")
+    @ResponseBody
+    public String jsonPostHandle2(@RequestBody JsonNode body){
+
+        Hello hello = new ObjectMapper().convertValue(body, Hello.class);
+
+        hello.setName(body.get("name").asText());
+        hello.setEmail(body.get("email").asText());
+        hello.setPassword(body.get("password").asText());
+
+        return "OK";
+    }
+
+
+
+    @PostMapping("json-post-handle3")
+    @ResponseBody
+    public String jsonPostHandle3(@RequestBody Hello hello){
+        print(hello);
+        return "OK";
+    }
+
+
+//    @ResquestBody
+//    json으로 데이터 데이터가 들어올 때
+
+//    @ResponeseBody
+//    json또는 string 등으로 데이터를 줄때
+
 
 //    JSON 데이터 받는 방법
 //      MAP<String, String>
