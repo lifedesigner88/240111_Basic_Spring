@@ -1,15 +1,19 @@
 package com.encore.basic.controller;
 
+import Print.Print;
 import com.encore.basic.domain.Hello;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 // 모든 요청에 ResponseBody를 붙이고 싶다면, RestController 사용
 @Controller
 // 클래스 차원에서 url 경로를 지정하고 싶다면 @RequestMapping을 클래스 위에 선언하면서 경로 지정.
 @RequestMapping("hello")
-public class HelloController {
+public class HelloController extends Print {
 
 //    responseBody가 없고,
 //    return 타입이 String 이면 template 밑에 html 파일 리턴
@@ -68,13 +72,47 @@ public class HelloController {
 
 //    From 태그로 x-www 데이터 처리
     @GetMapping("form-screen")
-    @PostMapping("/form-post-handle")
+    public String helloFormScreen() {
+        return "hello-form-screen";
+    }
+
+
+
+    @PostMapping("form-post-handle")
+    @ResponseBody
+    public String handleFormPost(@RequestParam("name") String name,
+                                 @RequestParam("email") String email,
+                                 @RequestParam("password") String password) {
+        print(name);
+        print(email);
+        print(password);
+        return "정상처리";
+    }
 
 
 //    json 데이터 처리
-
     @GetMapping("json-screen")
+    public String jsonScrean(){
+        return "hello-json-screen";
+    }
+
+
     @PostMapping("json-post-handle")
+    @ResponseBody
+//    RequestBody는 json으로 포스트 요청이 왔을 때 body에서 data를 꺼내기 위해 사용
+    public String jsonPostHandle1(@RequestBody Map<String, String> body){
+
+        print(body.get("name"));
+        print(body.get("email"));
+        print(body.get("password"));
+        return "정상처리";
+    }
+
+//    JSON 데이터 받는 방법
+//      MAP<String, String>
+//      JsonNode
+//      객체로 바로 변환
+
 }
 
 
