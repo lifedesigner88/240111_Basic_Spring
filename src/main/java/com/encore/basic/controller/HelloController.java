@@ -82,7 +82,6 @@ public class HelloController extends Print {
     }
 
 
-
     @PostMapping("form-post-handle")
     @ResponseBody
     public String handleFormPost(@RequestParam("name") String name,
@@ -94,11 +93,12 @@ public class HelloController extends Print {
         return "정상처리";
     }
 
-    @PostMapping("form-post-handle2")
-    @ResponseBody
 //    Spring Hello 클래스의 인스턴스를 자동 매핑하여 생성
 //    form-data 형식 즉, x-www-url인코딩 형식의 경우 사용.
 //    이를 데이터 바인딩이라 부른다. (Hello클래스에 setter필수) (Dto 객체를 통해)
+
+    @PostMapping("form-post-handle2")
+    @ResponseBody
     public String handleFormPost2(Hello hello) {
         print(hello);
         return "정상처리";
