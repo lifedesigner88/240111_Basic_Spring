@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th = "http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Member-list</title>
@@ -14,20 +15,10 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th>세종</th>
-            <th>세종@naver.com</th>
-            <th>1234</th>
-        </tr>
-        <tr>
-            <th>종현</th>
-            <th>종현@naver.com</th>
-            <th>1155123</th>
-        </tr>
-        <tr>
-            <th>보영</th>
-            <th>보영@naver.com</th>
-            <th>91913234</th>
+        <tr th:each = "memberResDto : ${memberList}">
+            <td th:text = "${memberResDto.name}"></td>
+            <td th:text = "${memberResDto.email}"></td>
+            <td th:text = "${memberResDto.password}"></td>
         </tr>
     </tbody>
 </table>

@@ -1,13 +1,12 @@
 package com.encore.basic.controller;
 
 import Print.Print;
-import com.encore.basic.domain.MemberRequestDto;
+import com.encore.basic.domain.MemberReqDto;
 import com.encore.basic.service.MemberService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -30,13 +29,18 @@ public class MemberController extends Print {
 
     private MemberService memberService;
 
-    @Autowired
-    public MemberController(MemberService memberService) {
-        this.memberService = memberService;
+    MemberController() {
+        this.memberService = new MemberService();
     }
 
+
+    @GetMapping("/")
+    public String home(){return "/member/home";}
+
+
     @GetMapping("members")
-    public String getMembers() {
+    public String getMembers(Model model) {
+        model.addAttribute("memberList", memberService.members());
         return "member/member-list";
     }
 
@@ -48,10 +52,8 @@ public class MemberController extends Print {
 
 
     @PostMapping("/member/create")
-    public String postMemberCreate(MemberRequestDto memberRequestDto){
-        print(memberRequestDto.getName());
-        print(memberRequestDto.getEmail());
-        print(memberRequestDto.getPassword());
-        return "member/member-list";
+    public String postMemberCreate(MemberReqDto reqDto){
+        memberService.memberCreate(reqDto);
+        return "member/home";
     }
 }
