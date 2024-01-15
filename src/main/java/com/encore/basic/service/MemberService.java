@@ -4,19 +4,24 @@ import com.encore.basic.domain.Member;
 import com.encore.basic.domain.MemberReqDto;
 import com.encore.basic.domain.MemberResDto;
 import com.encore.basic.repository.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Service
 public class MemberService {
 
-    static int total_id;
-    private final MemoryMemberRepository memoryMemberRepository;
 
-    public MemberService() {
-        total_id = 0;
-        memoryMemberRepository = new MemoryMemberRepository();
+    private final MemoryMemberRepository memoryMemberRepository;
+    static int total_id;
+
+    @Autowired
+    public MemberService(MemoryMemberRepository memoryMemberRepository) {
+        this.memoryMemberRepository = memoryMemberRepository;
     }
 
     public List<MemberResDto> members() {
