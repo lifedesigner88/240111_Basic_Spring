@@ -1,7 +1,9 @@
 package com.encore.basic.controller;
 
 import Print.Print;
+import com.encore.basic.domain.Member;
 import com.encore.basic.domain.MemberReqDto;
+import com.encore.basic.repository.MemberRepository;
 import com.encore.basic.service.MemberService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 1. 회원목록 조회
@@ -25,12 +28,21 @@ import org.springframework.web.bind.annotation.PostMapping;
  * 화면 : member/member-create 화면은 form data 형식
  **/
 
+/*
+    링크 => get member/find?id=2;
+    1) resDTO에 id값 추가
+    2) controller 에 /member/find
+    3) service 비지니스 로직
+    4) repository에서 실직적으로 Search
+    5) 상세보기 화면 : name, email, password, 가입시간
+
+*/
 
 @Controller
 //@RequiredArgsConstructor
 public class MemberController extends Print {
 
-
+/*
     // Service 어노테이션을 통해 싱글통 컴포넌트로 생성 => 스프링 빈으로 등록
     // 스프링 빈이란 스프링이 생성하고 관리하는 객체를 의미
     // 제어의 역전(Inversion of Control) -> IOC컨테이너가 스프링 빈을 관리(빈을 생성,주입)
@@ -45,13 +57,13 @@ public class MemberController extends Print {
 //    의존성 주입 방법(2) 생성자 주입 방식.
 //    장점 : final을통해 상수로 사용가능,
 //    생성자가 1개 밖에 없을 때는 Autowired 생략 가능
+*/
 
     private final MemberService memberService;
     public MemberController(@Autowired MemberService memberService) {
         this.memberService = memberService;
     }
-
-
+/*
 
 //    @Autowired
 //    public MemberController(MemberService memberService) {
@@ -67,11 +79,20 @@ public class MemberController extends Print {
 //     or
 //    private final MemberService memberService; // 한줄만
 
-
+*/
 
     @GetMapping("/")
     public String home(){return "/member/header";}
 
+    @GetMapping("/member/find")
+    public String findbyIdforDetail(@RequestParam(value = "id") int id, Model model){
+
+
+        Member member = memberService.getMemberRepository().findById(id);
+        model.addAttribute("detail", member);
+
+        return "/member/member-detail";
+    }
 
     @GetMapping("members")
     public String getMembers(Model model) {
@@ -89,6 +110,7 @@ public class MemberController extends Print {
     @PostMapping("/member/create")
     public String postMemberCreate(MemberReqDto reqDto){
         memberService.memberCreate(reqDto);
-        return "/member/header";
+//        url 리다이렉트
+        return "redirect:/members";
     }
 }
