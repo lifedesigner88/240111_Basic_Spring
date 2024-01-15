@@ -5,12 +5,12 @@
     <title>Member-create</title>
 </head>
 <body>
-<form id="myFrom">
-    <labael> for Member create
-        <p>이름 : </p><input id="name" type="text">
-        <p>이메일 : </p><input id="email" type="text">
-        <p>비밀번호 : </p><input id="password" type="text">
-    </labael>
+<form action="/member/create" method="post">
+    <label> for Member create
+        <p>이름 : </p><input name="name" type="text">
+        <p>이메일 : </p><input name="email" type="text">
+        <p>비밀번호 : </p><input name="password" type="text">
+    </label>
     <p><button type="submit">Submit</button></p>
 </form>
 
