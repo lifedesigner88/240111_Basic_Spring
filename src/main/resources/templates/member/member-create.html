@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Member-create</title>
+
 </head>
-<body>
+<body >
 <div th:replace="member/header :: headerFragment"></div>
-<form action="/member/create" method="post">
+<form action="/member/create" method="post" style="padding: 20px">
     <label> for Member create
         <p>이름 : </p><input name="name" type="text">
         <p>이메일 : </p><input name="email" type="text">

@@ -63,6 +63,7 @@ public class MemberController extends Print {
     public MemberController(@Autowired MemberService memberService) {
         this.memberService = memberService;
     }
+
 /*
 
 //    @Autowired
@@ -82,17 +83,18 @@ public class MemberController extends Print {
 */
 
     @GetMapping("/")
-    public String home(){return "/member/header";}
+    public String home(){return "/member/member-create";}
+
+
 
     @GetMapping("/member/find")
     public String findbyIdforDetail(@RequestParam(value = "id") int id, Model model){
-
-
-        Member member = memberService.getMemberRepository().findById(id);
-        model.addAttribute("detail", member);
-
+        model.addAttribute("detail", memberService.member(id));
         return "/member/member-detail";
     }
+
+
+
 
     @GetMapping("members")
     public String getMembers(Model model) {

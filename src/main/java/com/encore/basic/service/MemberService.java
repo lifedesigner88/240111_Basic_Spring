@@ -16,7 +16,6 @@ public class MemberService {
 
     static int total_id;
     private final MemberRepository memberRepository;
-
     public MemberService(@Autowired MemoryMemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
@@ -34,18 +33,23 @@ public class MemberService {
     public List<MemberResDto> members() {
         List<MemberResDto> resDtos = new ArrayList<>();
         List<Member> members = memberRepository.members();
-
         for (Member member : members)
-            resDtos.add(
-                    new MemberResDto(
-                            member.getId(),
-                            member.getName(),
-                            member.getEmail(),
-                            member.getPassword()));
+            resDtos.add(resDto(member));
         return resDtos;
     }
 
-    public MemberRepository getMemberRepository() {
-        return memberRepository;
+    public MemberResDto member(int id) {
+        return resDto(memberRepository.findById(id));
     }
+
+    private MemberResDto resDto(Member member){
+        return new MemberResDto(
+                member.getId(),
+                member.getName(),
+                member.getEmail(),
+                member.getPassword(),
+                member.getCreate_time()
+        );
+    }
+
 }

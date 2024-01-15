@@ -3,6 +3,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @AllArgsConstructor
 public class MemberResDto {
@@ -10,4 +12,9 @@ public class MemberResDto {
     private String name;
     private String email;
     private String password;
+    private LocalDateTime create_time;
 }
+
+
+
+
