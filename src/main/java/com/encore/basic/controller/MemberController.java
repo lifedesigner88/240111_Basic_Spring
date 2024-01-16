@@ -2,6 +2,7 @@ package com.encore.basic.controller;
 
 import Print.Print;
 import com.encore.basic.domain.MemberReqDto;
+import com.encore.basic.domain.MemberResDto;
 import com.encore.basic.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * 1. 회원목록 조회
@@ -94,15 +97,20 @@ public class MemberController extends Print {
 
     @GetMapping("members")            // 목록 조회
     public String getMembers(Model model) {
-        model.addAttribute("memberList", memberService.members());
+        List<MemberResDto> members = memberService.members();
+        model.addAttribute("memberList", members);
         return "/member/member-list";
     }
 
 
     @GetMapping("/member/find")         // 디테일 화면 보여주기
-    public String findbyIdforDetail(@RequestParam("id") int id, Model model)
-            throws NoSuchFieldException {
-        model.addAttribute("detail", memberService.member(id));
+    public String forDetail(@RequestParam("id") int id, Model model) {
+        try {
+            MemberResDto member = memberService.member(id);
+            model.addAttribute("detail", member);
+        } catch (NoSuchFieldException e) {
+            return "/404-error-page";
+        }
         return "/member/member-detail";
     }
 }
