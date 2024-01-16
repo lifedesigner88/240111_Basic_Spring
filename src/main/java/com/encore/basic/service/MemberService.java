@@ -33,11 +33,11 @@ public class MemberService {
     }
 
     public List<MemberResDto> members() {
-        List<MemberResDto> resDtos = new ArrayList<>();
+        List<MemberResDto> DtoList = new ArrayList<>();
         List<Member> members = repository.members();
         for (Member member : members)
-            resDtos.add(resDto(member));
-        return resDtos;
+            DtoList.add(resDto(member));
+        return DtoList;
     }
 
     public MemberResDto member(int id) {

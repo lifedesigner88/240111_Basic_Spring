@@ -1,7 +1,6 @@
 package com.encore.basic.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 //@NoArgsConstructor   // (기본생성자)

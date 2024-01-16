@@ -1,12 +1,8 @@
 package com.encore.basic.controller;
 
 import Print.Print;
-import com.encore.basic.domain.Member;
 import com.encore.basic.domain.MemberReqDto;
-import com.encore.basic.repository.MemberRepository;
 import com.encore.basic.service.MemberService;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,20 +39,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MemberController extends Print {
 
 /*
-    // Service 어노테이션을 통해 싱글통 컴포넌트로 생성 => 스프링 빈으로 등록
-    // 스프링 빈이란 스프링이 생성하고 관리하는 객체를 의미
-    // 제어의 역전(Inversion of Control) -> IOC컨테이너가 스프링 빈을 관리(빈을 생성,주입)
+    Service 어노테이션을 통해 싱글통 컴포넌트로 생성 => 스프링 빈으로 등록
+    스프링 빈이란 스프링이 생성하고 관리하는 객체를 의미
+    제어의 역전(Inversion of Control) -> IOC컨테이너가 스프링 빈을 관리(빈을 생성,주입)
 
+    의존성 주입(DI)  필드 주입방식
+    @Autowired
+    private MemberService memberService;
 
-//    의존성 주입(DI)  필드 주입방식
-//    @Autowired
-//    private MemberService memberService;
-
-
-
-//    의존성 주입 방법(2) 생성자 주입 방식.
-//    장점 : final을통해 상수로 사용가능,
-//    생성자가 1개 밖에 없을 때는 Autowired 생략 가능
+    의존성 주입 방법(2) 생성자 주입 방식.
+    장점 : final을통해 상수로 사용가능,
+    생성자가 1개 밖에 없을 때는 Autowired 생략 가능
 */
 
     private final MemberService memberService;
@@ -66,53 +59,55 @@ public class MemberController extends Print {
 
 /*
 
-//    @Autowired
-//    public MemberController(MemberService memberService) {
-//        this.memberService = memberService;
-//    }
+    @Autowired
+    public MemberController(MemberService memberService) {
+        this.memberService = memberService;
+    }
 
-//   의존성 주입방벙 (3) @RequiredArgsConstructor 이용한 방식
-//    @RequiredArgsConstructor : @NonNull 어노테이션이 붙어있는 필드 또는
-//    초기화 되지 않은 final 필드를 대상으로 생성자 생성.
-//    @RequiredArgsConstructor // 클래스에
-//    @NonNull
-//    private MemberService memberService; // 한줄만
-//     or
-//    private final MemberService memberService; // 한줄만
+   의존성 주입방벙 (3) @RequiredArgsConstructor 이용한 방식
+    @RequiredArgsConstructor : @NonNull 어노테이션이 붙어있는 필드 또는
+    초기화 되지 않은 final 필드를 대상으로 생성자 생성.
+    @RequiredArgsConstructor // 클래스에
+    @NonNull
+    private MemberService memberService; // 한줄만
+     or
+    private final MemberService memberService; // 한줄만
 
 */
 
-    @GetMapping("/")
+    @GetMapping("/")            // 페인페이지 크리에이트 페이지
     public String home(){return "/member/member-create";}
 
 
+    @GetMapping("member/create")        // 생성 화면만 보여주는 페이지
+    public String getCreateFrom() {
+        return "/member/member-create";
+    }
 
-    @GetMapping("/member/find")
-    public String findbyIdforDetail(@RequestParam(value = "id") int id, Model model){
-        model.addAttribute("detail", memberService.member(id));
-        return "/member/member-detail";
+    @PostMapping("/member/create")   // Post 요청 데이터 바인딩.
+    public String postMemberCreate(MemberReqDto reqDto){
+        memberService.memberCreate(reqDto);
+//        url 리다이렉트
+        return "redirect:/members";
     }
 
 
-
-
-    @GetMapping("members")
+    @GetMapping("members")            // 목록 조회
     public String getMembers(Model model) {
         model.addAttribute("memberList", memberService.members());
         return "/member/member-list";
     }
 
 
-    @GetMapping("member/create")
-    public String getCreateFrom() {
-        return "/member/member-create";
-    }
-
-
-    @PostMapping("/member/create")
-    public String postMemberCreate(MemberReqDto reqDto){
-        memberService.memberCreate(reqDto);
-//        url 리다이렉트
-        return "redirect:/members";
+    @GetMapping("/member/find")         // 디테일 화면 보여주기
+    public String findbyIdforDetail(@RequestParam(value = "id") int id, Model model){
+        model.addAttribute("detail", memberService.member(id));
+        return "/member/member-detail";
     }
 }
+
+
+
+
+
+
