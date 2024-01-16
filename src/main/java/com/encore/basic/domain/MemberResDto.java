@@ -14,7 +14,3 @@ public class MemberResDto {
     private String password;
     private LocalDateTime create_time;
 }
-
-
-
-

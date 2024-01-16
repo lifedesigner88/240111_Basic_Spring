@@ -1,9 +1,6 @@
 package com.encore.basic.repository;
-
-import Print.Print;
 import com.encore.basic.domain.Member;
 import org.springframework.stereotype.Repository;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -15,13 +15,15 @@ import java.util.List;
 public class MemberService {
 
     static int total_id;
-    private final MemberRepository memberRepository;
-    public MemberService(@Autowired MemoryMemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
+    private final MemberRepository repository;
+
+    @Autowired
+    public MemberService(MemoryMemberRepository repository) {
+        this.repository = repository;
     }
 
     public void memberCreate(MemberReqDto reqDto) {
-        memberRepository.memberCreate(
+        repository.memberCreate(
                 new Member(
                         total_id++,
                         reqDto.getName(),
@@ -32,14 +34,14 @@ public class MemberService {
 
     public List<MemberResDto> members() {
         List<MemberResDto> resDtos = new ArrayList<>();
-        List<Member> members = memberRepository.members();
+        List<Member> members = repository.members();
         for (Member member : members)
             resDtos.add(resDto(member));
         return resDtos;
     }
 
     public MemberResDto member(int id) {
-        return resDto(memberRepository.findById(id));
+        return resDto(repository.findById(id));
     }
 
     private MemberResDto resDto(Member member){
