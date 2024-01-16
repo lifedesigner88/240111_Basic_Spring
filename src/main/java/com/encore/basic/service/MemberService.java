@@ -6,7 +6,6 @@ import com.encore.basic.repository.JdbcMemberRepository;
 import com.encore.basic.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 

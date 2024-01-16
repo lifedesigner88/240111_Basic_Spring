@@ -35,8 +35,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.mariadb.jdbc:mariadb-java-client'
 
-
-
+ 	implementation 'org.springframework.boot:spring-boot-startejr-data-jpa'
 //	오토 리런
 //	implementation 'org.sprinKKgframework.boot:spring-boot-devtools'
 
