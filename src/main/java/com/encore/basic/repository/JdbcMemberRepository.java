@@ -9,13 +9,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 // 가장 오래된 데이터 베이스 객체.
-
 @Repository
 public class JdbcMemberRepository implements MemberRepository{
     final String FIND_ALL_QUERY = "SELECT * FROM member";
@@ -67,7 +65,6 @@ public class JdbcMemberRepository implements MemberRepository{
         } catch (Exception e) {throw new RuntimeException(e);}
     }
 
-    // suport function
 
     private PreparedStatement getPrepState(String QUERY) throws SQLException {
         Connection connection = dataSource.getConnection();

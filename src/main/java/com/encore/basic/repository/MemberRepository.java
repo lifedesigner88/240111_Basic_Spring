@@ -1,5 +1,6 @@
 package com.encore.basic.repository;
 import com.encore.basic.domain.Member;
+
 import java.util.List;
 import java.util.Optional;
 
