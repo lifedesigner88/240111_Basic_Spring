@@ -7,7 +7,6 @@ import com.encore.basic.repository.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +14,6 @@ import java.util.List;
 @Service
 public class MemberService {
 
-    static int total_id;
     private final MemberRepository repository;
 
     @Autowired
@@ -26,11 +24,10 @@ public class MemberService {
     public void memberCreate(MemberReqDto reqDto) {
         repository.save(
                 new Member(
-                        total_id++,
                         reqDto.getName(),
                         reqDto.getEmail(),
-                        reqDto.getPassword(),
-                        LocalDateTime.now()));
+                        reqDto.getPassword()
+                ));
     }
 
     public List<MemberResDto> members() {
