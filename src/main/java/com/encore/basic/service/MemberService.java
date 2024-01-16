@@ -6,10 +6,14 @@ import com.encore.basic.repository.MemberRepository;
 import com.encore.basic.repository.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import static org.springframework.util.ClassUtils.isPresent;
 
 @Service
 public class MemberService {
@@ -23,7 +27,7 @@ public class MemberService {
     }
 
     public void memberCreate(MemberReqDto reqDto) {
-        repository.memberCreate(
+        repository.save(
                 new Member(
                         total_id++,
                         reqDto.getName(),
@@ -34,14 +38,17 @@ public class MemberService {
 
     public List<MemberResDto> members() {
         List<MemberResDto> DtoList = new ArrayList<>();
-        List<Member> members = repository.members();
+        List<Member> members = repository.findAll();
         for (Member member : members)
             DtoList.add(resDto(member));
         return DtoList;
     }
 
-    public MemberResDto member(int id) {
-        return resDto(repository.findById(id));
+    public MemberResDto member(int id)
+            throws NoSuchFieldException {
+        return resDto(
+                repository.findById(id)
+                        .orElseThrow(NoSuchFieldException::new));
     }
 
     private MemberResDto resDto(Member member){

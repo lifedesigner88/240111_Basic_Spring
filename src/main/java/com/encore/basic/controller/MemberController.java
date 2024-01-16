@@ -75,11 +75,11 @@ public class MemberController extends Print {
 
 */
 
-    @GetMapping("/")            // 페인페이지 크리에이트 페이지
+    @GetMapping("/")                  // 페인페이지 크리에이트 페이지
     public String home(){return "/member/member-create";}
 
 
-    @GetMapping("member/create")        // 생성 화면만 보여주는 페이지
+    @GetMapping("member/create")      // 생성 화면만 보여주는 페이지
     public String getCreateFrom() {
         return "/member/member-create";
     }
@@ -100,7 +100,8 @@ public class MemberController extends Print {
 
 
     @GetMapping("/member/find")         // 디테일 화면 보여주기
-    public String findbyIdforDetail(@RequestParam(value = "id") int id, Model model){
+    public String findbyIdforDetail(@RequestParam("id") int id, Model model)
+            throws NoSuchFieldException {
         model.addAttribute("detail", memberService.member(id));
         return "/member/member-detail";
     }
