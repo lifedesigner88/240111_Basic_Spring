@@ -2,8 +2,8 @@ package com.encore.basic.service;
 import com.encore.basic.domain.Member;
 import com.encore.basic.domain.MemberReqDto;
 import com.encore.basic.domain.MemberResDto;
+import com.encore.basic.repository.JdbcMemberRepository;
 import com.encore.basic.repository.MemberRepository;
-import com.encore.basic.repository.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ public class MemberService {
     private final MemberRepository repository;
 
     @Autowired
-    public MemberService(MemoryMemberRepository repository) {
+    public MemberService(JdbcMemberRepository repository) {
         this.repository = repository;
     }
 

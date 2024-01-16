@@ -38,14 +38,13 @@ dependencies {
 
 
 //	오토 리런
-//	implementation 'org.springframework.boot:spring-boot-devtools'
+//	implementation 'org.sprinKKgframework.boot:spring-boot-devtools'
 
 //	lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
 }
-
 tasks.named('test') {
 //	테스트 라이브러리로 주로 JUnit을 사용
 	useJUnitPlatform()
