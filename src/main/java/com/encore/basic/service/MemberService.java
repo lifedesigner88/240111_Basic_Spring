@@ -3,6 +3,7 @@ import com.encore.basic.domain.Member;
 import com.encore.basic.domain.MemberReqDto;
 import com.encore.basic.domain.MemberResDto;
 import com.encore.basic.repository.MemberRepository;
+import com.encore.basic.repository.MybatisMemberRepository;
 import com.encore.basic.repository.SpringDataJpaMemberRopository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
