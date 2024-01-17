@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -88,11 +89,16 @@ public class MemberController extends Print {
         return "/member/member-create";
     }
 
+
     @PostMapping("/member/create")   // Post 요청 데이터 바인딩.
-    public String postMemberCreate(MemberReqDto reqDto){
-        memberService.memberCreate(reqDto);
+    public String postMemberCreate(MemberReqDto reqDto)  {
+        try {
+            memberService.memberCreate(reqDto);
+            return "redirect:/members";
+        } catch (IllegalAccessException e) {
+            return "404-error-page";
+        }
 //        url 리다이렉트
-        return "redirect:/members";
     }
 
 

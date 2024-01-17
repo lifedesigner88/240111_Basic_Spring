@@ -4,5 +4,5 @@ CREATE TABLE member(
                        name VARCHAR(255),
                        email VARCHAR(255) NOT NULL,
                        password VARCHAR(255) NOT NULL,
-                       create_time datetime DEFAULT current_timestamp(),
+                       created_time datetime DEFAULT current_timestamp(),
                        PRIMARY KEY (id));

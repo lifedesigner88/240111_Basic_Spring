@@ -25,9 +25,10 @@ public class JpaMemberRepository implements MemberRepository {
     @Override
     public List<Member> findAll() {
 //        jpql : jpa의 객체지향 쿼리문법
-//        장점 : db에 따라 문법이 달라지지 않는 객체지향 언어, 컴파일타임에서 check.
+//        장점 : db에 따라 문법이 달라지지 않는 객체지향 언어, 컴파일타임에서 check.(SpringData.JPA의 @Query 가능)
 //        단점 : DB 고유의 기능과 성능을 극대화하기는 어려움.
-        return entityManager.createQuery("select m from Member m", Member.class)
+        return entityManager
+                .createQuery("select m from Member m", Member.class)
                 .getResultList();
     }
 
@@ -35,12 +36,20 @@ public class JpaMemberRepository implements MemberRepository {
     public Member save(Member member) {
 //        EntityManager의 관리상태가 되도록 만들어주고
 //        트랜잭션이 커밋될 때 데이터 베이스에 저장. insert, update 포함.
-        entityManager.persist(member);
+        entityManager
+                .persist(member);
         return member;
     }
 
     @Override
-    public Optional<Member> findById(int id) {
+    public Optional<Member> findById(int id) {    //pk를 매개변수로 둔다.
         return Optional.ofNullable(entityManager.find(Member.class, id));
+    }
+
+    public List<Member> findByName(String name){    //jpql JPQL
+        return entityManager
+                .createQuery("select m from Member m where m.name = :name", Member.class)
+                .setParameter("name", name)
+                .getResultList();
     }
 }
