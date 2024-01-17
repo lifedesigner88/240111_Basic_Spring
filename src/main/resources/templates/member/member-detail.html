@@ -57,7 +57,7 @@
 <div id="update-form" style="display: none">
 <form action="/member/update" method="post" style="padding: 150px">
     <label> Update
-        <p>아이디 : </p><input name="name" type="text" th:value="${detail.getId()}" readonly>
+        <p>아이디 : </p><input name="id" type="text" th:value="${detail.getId()}" readonly>
         <p>이름 : </p><input name="name" type="text" th:value="${detail.getName()}">
         <p>이메일 : </p><input name="email" type="text" th:value="${detail.getEmail()}" readonly>
         <p>비밀번호 : </p><input name="password" type="text" th:value="${detail.getPassword()}">
