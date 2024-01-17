@@ -1,3 +1,4 @@
+
 CREATE TABLE member(
                        id INT(11) NOT NULL auto_increment,
                        name VARCHAR(255),

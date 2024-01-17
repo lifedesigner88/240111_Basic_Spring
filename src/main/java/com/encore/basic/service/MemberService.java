@@ -7,17 +7,17 @@ import com.encore.basic.repository.MybatisMemberRepository;
 import com.encore.basic.repository.SpringDataJpaMemberRopository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Service
 public class MemberService {
 
     private final MemberRepository repository;
 
-    @Autowired
-    public MemberService(SpringDataJpaMemberRopository repository) {
+    public MemberService(@Autowired MybatisMemberRepository repository) {
         this.repository = repository;
     }
 
@@ -38,11 +38,10 @@ public class MemberService {
         return DtoList;
     }
 
-    public MemberResDto member(int id)
-            throws NoSuchFieldException {
+    public MemberResDto member(int id) throws EntityNotFoundException {
         return resDto(
                 repository.findById(id)
-                        .orElseThrow(NoSuchFieldException::new));
+                        .orElseThrow(EntityNotFoundException::new));
     }
 
     private MemberResDto resDto(Member member){
@@ -54,5 +53,4 @@ public class MemberService {
                 member.getCreate_time()
         );
     }
-
 }

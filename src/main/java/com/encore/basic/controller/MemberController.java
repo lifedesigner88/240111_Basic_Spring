@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 /**
@@ -108,7 +109,7 @@ public class MemberController extends Print {
         try {
             MemberResDto member = memberService.member(id);
             model.addAttribute("detail", member);
-        } catch (NoSuchFieldException e) {
+        } catch (EntityNotFoundException e) {
             return "/404-error-page";
         }
         return "/member/member-detail";

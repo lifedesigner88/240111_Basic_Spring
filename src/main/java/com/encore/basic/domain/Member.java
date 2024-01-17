@@ -26,10 +26,8 @@ public class Member {
 
     private String name;
 
-
     @Column(nullable = false, length = 50)  // name 옵션을 통해서 DB의 컬럼명 별도 지정 가능
     private String email;
-
 
     private String password;
 
