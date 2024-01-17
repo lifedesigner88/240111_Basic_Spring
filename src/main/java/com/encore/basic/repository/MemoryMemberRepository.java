@@ -31,4 +31,10 @@ public class MemoryMemberRepository implements MemberRepository {
             if (a.getId() == id) return Optional.of(a);
         return Optional.empty();
     }
+
+    @Override
+    public void delete(Member member) {
+    }
+
+
 }

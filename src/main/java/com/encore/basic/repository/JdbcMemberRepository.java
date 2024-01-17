@@ -65,6 +65,11 @@ public class JdbcMemberRepository implements MemberRepository{
         } catch (Exception e) {throw new RuntimeException(e);}
     }
 
+    @Override
+    public void delete(Member member) {
+
+    }
+
 
     private PreparedStatement getPrepState(String QUERY) throws SQLException {
         Connection connection = dataSource.getConnection();

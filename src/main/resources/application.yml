@@ -29,7 +29,10 @@ spring:
 #      validate는 실제 DB와의 차이만을 check
 #      실무에서는 update 또는 validate 사용
 
-mybatis:
+
+
+
+mybatis: # 매퍼 파일의 위치를
   mapper-locations: classpath:/mapper/**/*.xml
 
 

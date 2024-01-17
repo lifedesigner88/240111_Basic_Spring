@@ -16,6 +16,9 @@ import java.util.List;
 
 @Service
          // 모든 메서드에 각각 트렌젝션 적용.
+
+@Transactional
+
 public class MemberService {
 
     private final MemberRepository repository;
@@ -24,8 +27,7 @@ public class MemberService {
         this.repository = repository;
     }
 
-    @Transactional
-    public void memberCreate(MemberReqDto reqDto) throws IllegalAccessException {
+    public void memberCreate(MemberReqDto reqDto) throws IllegalArgumentException {
 //        repository.save(
 //                new Member(
 //                        reqDto.getName(),
@@ -40,26 +42,48 @@ public class MemberService {
         repository.save(member);
 
         if (reqDto.getName().equals("kim")) {
-                throw new IllegalAccessException();
+                throw new IllegalArgumentException();
         }
-
     }
 
     public List<MemberResDto> members() {
         List<MemberResDto> DtoList = new ArrayList<>();
         List<Member> members = repository.findAll();
         for (Member member : members)
-            DtoList.add(resDto(member));
+            DtoList.add(memberToDto(member));
         return DtoList;
     }
 
     public MemberResDto member(int id) throws EntityNotFoundException {
-        return resDto(
+        return memberToDto(
                 repository.findById(id)
                         .orElseThrow(EntityNotFoundException::new));
     }
 
-    private MemberResDto resDto(Member member){
+    public void deleteMember(int id) throws EntityNotFoundException {
+        repository.delete(
+                repository
+                .findById(id)
+                .orElseThrow(EntityNotFoundException::new));
+    }
+
+
+    public MemberResDto update(MemberReqDto reqDto){
+        Member member = repository
+                .findById(reqDto.getId())
+                .orElseThrow(EntityNotFoundException::new);
+
+        member.setName(reqDto.getName());
+        member.setPassword(reqDto.getPassword());
+        member = repository.save(member);
+
+        return memberToDto(member);
+    }
+
+
+
+
+    private MemberResDto memberToDto(Member member){
         return new MemberResDto(
                 member.getId(),
                 member.getName(),
@@ -68,4 +92,5 @@ public class MemberService {
                 member.getCreated_time()
         );
     }
+
 }

@@ -92,10 +92,10 @@ public class MemberController extends Print {
 
     @PostMapping("/member/create")   // Post 요청 데이터 바인딩.
     public String postMemberCreate(MemberReqDto reqDto)  {
-        try {
+        try{
             memberService.memberCreate(reqDto);
             return "redirect:/members";
-        } catch (IllegalAccessException e) {
+        } catch (IllegalArgumentException e) {
             return "404-error-page";
         }
 //        url 리다이렉트
@@ -115,12 +115,77 @@ public class MemberController extends Print {
         try {
             MemberResDto member = memberService.member(id);
             model.addAttribute("detail", member);
+            return "/member/member-detail";
         } catch (EntityNotFoundException e) {
             return "/404-error-page";
         }
-        return "/member/member-detail";
     }
+
+    @GetMapping("/member/delete")
+    public String delete(@RequestParam("id") int id){
+        try {
+            memberService.deleteMember(id);
+            return "redirect:/members";
+        } catch (EntityNotFoundException e) {
+            return "/404-error-page";
+        }
+    }
+
+    @PostMapping("/member/update")
+    public String update(MemberReqDto reqDto){
+        try {
+            MemberResDto resDto;
+            resDto = memberService.update(reqDto);
+            return "redirect:/member/find?id=" + resDto.getId();
+        } catch (EntityNotFoundException e) {
+            return "/404-error-page";
+        }
+    }
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

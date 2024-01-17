@@ -35,7 +35,7 @@ public class JpaMemberRepository implements MemberRepository {
     @Override
     public Member save(Member member) {
 //        EntityManager의 관리상태가 되도록 만들어주고
-//        트랜잭션이 커밋될 때 데이터 베이스에 저장. insert, update 포함.
+//        트랜잭션이 커밋될 때 데이터 베이스에 저장. insert
         entityManager
                 .persist(member);
         return member;
@@ -45,6 +45,15 @@ public class JpaMemberRepository implements MemberRepository {
     public Optional<Member> findById(int id) {    //pk를 매개변수로 둔다.
         return Optional.ofNullable(entityManager.find(Member.class, id));
     }
+
+    @Override
+    public void delete(Member member) {
+        entityManager.remove(member);
+
+        // delete의 경우 remove 메서드 사용
+        // update의 경우 merge 메서드사용
+    }
+
 
     public List<Member> findByName(String name){    //jpql JPQL
         return entityManager
