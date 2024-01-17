@@ -78,7 +78,7 @@ public class JdbcMemberRepository implements MemberRepository{
                 resultSet.getString("password"));
         member.setId(
                 resultSet.getInt("id"));
-        member.setCreate_time(
+        member.setCreated_time(
                 resultSet.getTimestamp("create_time").toLocalDateTime());
         return member;
     }

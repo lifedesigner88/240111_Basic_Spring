@@ -1,12 +1,10 @@
 package com.encore.basic.repository;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
 
 // mybatis 레파지토리로 쓰겠다는 어노테이션
 
 @Mapper
-@Repository
 public interface MybatisMemberRepository extends MemberRepository {
 }
 /*

@@ -2,6 +2,7 @@ package com.encore.basic.repository;
 
 import com.encore.basic.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Repository;
 /*
  Srping data jpa의 기본기능을 쓰기 위해서는 jpaRepository를 상속해야함
@@ -12,4 +13,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SpringDataJpaMemberRopository
         extends MemberRepository, JpaRepository<Member, Integer> {
+
 }
