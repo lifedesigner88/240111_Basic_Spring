@@ -58,6 +58,8 @@ public class MemberController extends Print {
 
 
 
+
+
     private final MemberService memberService;
     public MemberController(@Autowired MemberService memberService) {
         this.memberService = memberService;
