@@ -1,7 +1,9 @@
-POST http://localhost:8081/member/create
-Content-Type: application/x-www-form-urlencoded
+POST /rest/member/create HTTP/1.1
+Host: localhost:8081
+Content-Type: application/json
 
-name = 세종 &
-email = 가나다라  &
-password = 매스워드
-
+{
+  "name" : "sejong",
+  "email" : "abcd",
+  "password" : "12345123"
+}
