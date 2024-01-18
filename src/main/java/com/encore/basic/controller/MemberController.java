@@ -70,6 +70,8 @@ public class MemberController extends Print {
         this.memberService = memberService;
     }
 
+
+
     의존성 주입방벙 (3) @RequiredArgsConstructor 이용한 방식
     @RequiredArgsConstructor : @NonNull 어노테이션이 붙어있는 필드 또는
     초기화 되지 않은 final 필드를 대상으로 생성자 생성.
