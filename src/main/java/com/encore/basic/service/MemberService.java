@@ -20,7 +20,7 @@ public class MemberService {
 
     private final MemberRepository repository;
 
-    public MemberService( SpringDataJpaMemberRopository repository) {
+    public MemberService(SpringDataJpaMemberRopository repository) {
         this.repository = repository;
     }
 
@@ -54,23 +54,22 @@ public class MemberService {
     public void deleteMember(int id) throws EntityNotFoundException {
         repository.delete(
                 repository
-                .findById(id)
-                .orElseThrow(EntityNotFoundException::new));
+                        .findById(id)
+                        .orElseThrow(EntityNotFoundException::new));
     }
 
 
     public MemberResDto update(MemberReqDto reqDto){
-        Member member = repository
-                .findById(reqDto.getId())
-                .orElseThrow(EntityNotFoundException::new);
 
-        member.setName(reqDto.getName());
-        member.setPassword(reqDto.getPassword());
-        member = repository.save(member);
-
-        return memberToDto(member);
+        return memberToDto(
+                repository.save(
+                        repository
+                                .findById(reqDto.getId())
+                                .orElseThrow(EntityNotFoundException::new)
+                                .MemberUpdate(
+                                        reqDto.getName(),
+                                        reqDto.getPassword())));
     }
-
 
 
 

@@ -1,0 +1,7 @@
+POST http://localhost:8081/member/create
+Content-Type: application/x-www-form-urlencoded
+
+name = 세종 &
+email = 가나다라  &
+password = 매스워드
+

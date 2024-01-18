@@ -103,7 +103,6 @@ public class MemberController extends Print {
         } catch (IllegalArgumentException e) {
             return "404-error-page";
         }
-//        url 리다이렉트
     }
 
 
@@ -146,9 +145,6 @@ public class MemberController extends Print {
             return "/404-error-page";
         }
     }
-
-
-
 
 }
 

@@ -38,11 +38,37 @@ public class Member {
     @UpdateTimestamp
     private LocalDateTime updateTime;
 
+
     public Member(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
     }
+
+    public Member MemberUpdate(String name, String password) {
+        this.name = name;
+        this.password = password;
+        return this;
+    }
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
