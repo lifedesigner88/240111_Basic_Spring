@@ -4,7 +4,6 @@ import com.encore.basic.domain.MemberReqDto;
 import com.encore.basic.domain.MemberResDto;
 import com.encore.basic.repository.MemberRepository;
 import com.encore.basic.repository.SpringDataJpaMemberRopository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -21,7 +20,7 @@ public class MemberService {
 
     private final MemberRepository repository;
 
-    public MemberService(@Autowired SpringDataJpaMemberRopository repository) {
+    public MemberService( SpringDataJpaMemberRopository repository) {
         this.repository = repository;
     }
 

@@ -1,7 +1,6 @@
 package com.encore.basic.repository;
 
 import com.encore.basic.domain.Member;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -18,7 +17,7 @@ public class JpaMemberRepository implements MemberRepository {
 */
 
     private final EntityManager entityManager;
-    public JpaMemberRepository(@Autowired EntityManager entityManager) {
+    public JpaMemberRepository( EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
@@ -54,11 +53,12 @@ public class JpaMemberRepository implements MemberRepository {
         // update의 경우 merge 메서드사용
     }
 
-
+/*
     public List<Member> findByName(String name){    //jpql JPQL
         return entityManager
                 .createQuery("select m from Member m where m.name = :name", Member.class)
                 .setParameter("name", name)
-                .getResultList();
-    }
+                .getResultList();}
+*/
+
 }
