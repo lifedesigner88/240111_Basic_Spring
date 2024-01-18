@@ -56,6 +56,8 @@ public class MemberController extends Print {
     생성자가 1개 밖에 없을 때는 Autowired 생략 가능
 */
 
+
+
     private final MemberService memberService;
     public MemberController(@Autowired MemberService memberService) {
         this.memberService = memberService;
