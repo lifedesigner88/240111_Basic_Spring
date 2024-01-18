@@ -48,7 +48,7 @@ public class MemberService {
     public MemberResDto member(int id) throws EntityNotFoundException {
         return memberToDto(
                 repository.findById(id)
-                        .orElseThrow(EntityNotFoundException::new));
+                        .orElseThrow(() -> new EntityNotFoundException("검색하신 ID의 Member가 없습니다.")));
     }
 
     public void deleteMember(int id) throws EntityNotFoundException {

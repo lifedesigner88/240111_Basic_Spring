@@ -6,8 +6,8 @@
 
 
 #
-server:
-  port: 8081
+#server:
+#  port: 8081
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver

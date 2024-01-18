@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/rest")
@@ -33,13 +34,14 @@ public class MemberRestController {
 
 
     @GetMapping("member/find/{id}")         // 디테일 화면 보여주기
-    public ResponseEntity<MemberResDto> forDetail(@PathVariable int id) {
+    public ResponseEntity<Map<String, Object>> forDetail(@PathVariable int id) {
         MemberResDto memberResDto;
         try {
             memberResDto = memberService.member(id);
-            return new ResponseEntity<>(memberResDto, HttpStatus.OK);
+            return ResponseEntityController.responseMessage(HttpStatus.OK, memberResDto);
         } catch (EntityNotFoundException e) {
-            throw new RuntimeException(e);
+            return ResponseEntityController.errRsponseMessage(HttpStatus.NOT_FOUND,e.getMessage());
+
         }
     }
 
