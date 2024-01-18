@@ -2,9 +2,7 @@ package com.encore.basic.service;
 import com.encore.basic.domain.Member;
 import com.encore.basic.domain.MemberReqDto;
 import com.encore.basic.domain.MemberResDto;
-import com.encore.basic.repository.JpaMemberRepository;
 import com.encore.basic.repository.MemberRepository;
-import com.encore.basic.repository.MybatisMemberRepository;
 import com.encore.basic.repository.SpringDataJpaMemberRopository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,18 +26,12 @@ public class MemberService {
     }
 
     public void memberCreate(MemberReqDto reqDto) throws IllegalArgumentException {
-//        repository.save(
-//                new Member(
-//                        reqDto.getName(),
-//                        reqDto.getEmail(),
-//                        reqDto.getPassword()
-//                ));
-
-        Member member = new Member(
-                reqDto.getName(),
-                reqDto.getEmail(),
-                reqDto.getPassword());
-        repository.save(member);
+        repository.save(
+                new Member(
+                        reqDto.getName(),
+                        reqDto.getEmail(),
+                        reqDto.getPassword()
+                ));
 
         if (reqDto.getName().equals("kim")) {
                 throw new IllegalArgumentException();
