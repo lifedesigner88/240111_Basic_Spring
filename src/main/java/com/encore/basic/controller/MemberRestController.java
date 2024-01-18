@@ -20,7 +20,6 @@ public class MemberRestController {
         this.memberService = memberService;
     }
 
-
     @PostMapping("member/create")
     public String postMemberCreate(@RequestBody MemberReqDto reqDto)  {
             memberService.memberCreate(reqDto);
@@ -32,16 +31,16 @@ public class MemberRestController {
         return memberService.members();
     }
 
-
     @GetMapping("member/find/{id}")         // 디테일 화면 보여주기
     public ResponseEntity<Map<String, Object>> forDetail(@PathVariable int id) {
         MemberResDto memberResDto;
         try {
             memberResDto = memberService.member(id);
-            return ResponseEntityController.responseMessage(HttpStatus.OK, memberResDto);
+            return ResponseEntityController
+                    .responseMessage(HttpStatus.OK, memberResDto);
         } catch (EntityNotFoundException e) {
-            return ResponseEntityController.errRsponseMessage(HttpStatus.NOT_FOUND,e.getMessage());
-
+            return ResponseEntityController
+                    .errRsponseMessage(HttpStatus.NOT_FOUND,e.getMessage());
         }
     }
 

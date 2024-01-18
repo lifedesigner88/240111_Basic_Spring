@@ -15,7 +15,6 @@ import java.util.Map;
 @RequestMapping("response/entity")
 public class ResponseEntityController {
 
-
     //    ResponseStatus 어노테이션 방식
     @GetMapping("responseStatus1")
     @ResponseStatus(HttpStatus.CREATED)
@@ -23,13 +22,11 @@ public class ResponseEntityController {
         return "ok";
     }
 
-
     @GetMapping("responseStatus2")
     @ResponseStatus(HttpStatus.CREATED)
     public Member getMember() {
         return new Member("temp", "life", "123124");
     }
-
 
     //    ResponseEntity객체를 직접 생성한 방식.
     @GetMapping("custom1")
@@ -38,7 +35,6 @@ public class ResponseEntityController {
         return new ResponseEntity<>(member, HttpStatus.CREATED);
     }
 
-
     //    Test/html로 설정
     @GetMapping("custom2")
     public ResponseEntity<String> custom2() {
@@ -46,10 +42,10 @@ public class ResponseEntityController {
         return new ResponseEntity<>(html, HttpStatus.NOT_FOUND);
     }
 
-
     //    map 형태의 메시지 커스텀
     @GetMapping("map_custom1")
-    public static ResponseEntity<Map<String, Object>> errRsponseMessage(HttpStatus status, String message) {
+    public static ResponseEntity<Map<String, Object>>
+     errRsponseMessage(HttpStatus status, String message) {
         Map<String, Object> map = new HashMap<>();
         map.put("status", Integer.toString(status.value()));
         map.put("status message", status.getReasonPhrase());
@@ -57,15 +53,14 @@ public class ResponseEntityController {
         return new ResponseEntity<>(map, status);
     }
 
-
     @GetMapping("map_custom2")
-    public static ResponseEntity<Map<String, Object>> responseMessage(HttpStatus status, Object object) {
+    public static ResponseEntity<Map<String, Object>>
+        responseMessage(HttpStatus status, Object object) {
         Map<String, Object> map2 = new HashMap<>();
         Member member = new Member("John", "john@example.com", "password");
         map2.put("error message", member);
         return new ResponseEntity<>(map2, status);
     }
-
 
 //    메서드 체니이 :
     @GetMapping("chaining1")
@@ -73,7 +68,6 @@ public class ResponseEntityController {
          Member member3 = new Member("John", "john@example.com", "password");
         return ResponseEntity.ok(member3);
     }
-
 
     @GetMapping("chaining2")
     public ResponseEntity<Member> chaining2(){
@@ -85,8 +79,10 @@ public class ResponseEntityController {
         Member member4 = new Member("John", "john@example.com", "password");
         return ResponseEntity.status(HttpStatus.CREATED).body(member4);
     }
-
 }
+
+
+
 
 
 
