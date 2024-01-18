@@ -3,16 +3,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.encore.basic.repository.MybatisMemberRepository">
+
     <select id="findAll" resultType="com.encore.basic.domain.Member">
         SELECT * FROM member;
     </select>
-    <select id="findById" resultType="com.encore.basic.domain.Member" parameterType="Integer">
+
+    <select id="findById" resultType="com.encore.basic.domain.Member"
+            parameterType="Integer">
         SELECT * FROM member WHERE ID =#{id};
     </select>
 
     <select id="save">
-        INSERT INTO member(name, email, password)
-        values (#{name}, #{email}, #{password});
+        INSERT INTO member(name, email, password, created_time)
+        values (#{name}, #{email}, #{password}, #{created_time} );
     </select>
 
 </mapper>

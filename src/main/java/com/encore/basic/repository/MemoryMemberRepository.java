@@ -20,7 +20,7 @@ public class MemoryMemberRepository implements MemberRepository {
     @Override
     public Member save(Member member) {
         member.setId(total_id++);
-        member.setCreate_time(LocalDateTime.now());
+        member.setCreated_time(LocalDateTime.now());
         MemberDb.add(member);
         return member;
     }
@@ -31,4 +31,10 @@ public class MemoryMemberRepository implements MemberRepository {
             if (a.getId() == id) return Optional.of(a);
         return Optional.empty();
     }
+
+    @Override
+    public void delete(Member member) {
+    }
+
+
 }

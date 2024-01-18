@@ -3,55 +3,83 @@ import com.encore.basic.domain.Member;
 import com.encore.basic.domain.MemberReqDto;
 import com.encore.basic.domain.MemberResDto;
 import com.encore.basic.repository.MemberRepository;
-import com.encore.basic.repository.MybatisMemberRepository;
 import com.encore.basic.repository.SpringDataJpaMemberRopository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Service
+         // 모든 메서드에 각각 트렌젝션 적용.
+
+@Transactional
+
 public class MemberService {
 
     private final MemberRepository repository;
 
-    @Autowired
     public MemberService(SpringDataJpaMemberRopository repository) {
         this.repository = repository;
     }
 
-    public void memberCreate(MemberReqDto reqDto) {
+    public void memberCreate(MemberReqDto reqDto) throws IllegalArgumentException {
         repository.save(
                 new Member(
                         reqDto.getName(),
                         reqDto.getEmail(),
                         reqDto.getPassword()
                 ));
+
+        if (reqDto.getName().equals("kim")) {
+                throw new IllegalArgumentException();
+        }
     }
 
     public List<MemberResDto> members() {
         List<MemberResDto> DtoList = new ArrayList<>();
         List<Member> members = repository.findAll();
         for (Member member : members)
-            DtoList.add(resDto(member));
+            DtoList.add(memberToDto(member));
         return DtoList;
     }
 
-    public MemberResDto member(int id)
-            throws NoSuchFieldException {
-        return resDto(
+    public MemberResDto member(int id) throws EntityNotFoundException {
+        return memberToDto(
                 repository.findById(id)
-                        .orElseThrow(NoSuchFieldException::new));
+                        .orElseThrow(() -> new EntityNotFoundException("검색하신 ID의 Member가 없습니다.")));
     }
 
-    private MemberResDto resDto(Member member){
+    public void deleteMember(int id) throws EntityNotFoundException {
+        repository.delete(
+                repository
+                        .findById(id)
+                        .orElseThrow(EntityNotFoundException::new));
+    }
+
+
+    public MemberResDto update(MemberReqDto reqDto){
+
+        return memberToDto(
+                repository.save(
+                        repository
+                                .findById(reqDto.getId())
+                                .orElseThrow(EntityNotFoundException::new)
+                                .MemberUpdate(
+                                        reqDto.getName(),
+                                        reqDto.getPassword())));
+    }
+
+
+
+    private MemberResDto memberToDto(Member member){
         return new MemberResDto(
                 member.getId(),
                 member.getName(),
                 member.getEmail(),
                 member.getPassword(),
-                member.getCreate_time()
+                member.getCreated_time()
         );
     }
 

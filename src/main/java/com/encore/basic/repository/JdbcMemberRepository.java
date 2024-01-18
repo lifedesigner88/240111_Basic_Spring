@@ -65,6 +65,11 @@ public class JdbcMemberRepository implements MemberRepository{
         } catch (Exception e) {throw new RuntimeException(e);}
     }
 
+    @Override
+    public void delete(Member member) {
+
+    }
+
 
     private PreparedStatement getPrepState(String QUERY) throws SQLException {
         Connection connection = dataSource.getConnection();
@@ -78,7 +83,7 @@ public class JdbcMemberRepository implements MemberRepository{
                 resultSet.getString("password"));
         member.setId(
                 resultSet.getInt("id"));
-        member.setCreate_time(
+        member.setCreated_time(
                 resultSet.getTimestamp("create_time").toLocalDateTime());
         return member;
     }

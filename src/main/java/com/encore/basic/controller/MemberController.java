@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 /**
@@ -55,6 +56,10 @@ public class MemberController extends Print {
     생성자가 1개 밖에 없을 때는 Autowired 생략 가능
 */
 
+
+
+
+
     private final MemberService memberService;
     public MemberController(@Autowired MemberService memberService) {
         this.memberService = memberService;
@@ -67,7 +72,9 @@ public class MemberController extends Print {
         this.memberService = memberService;
     }
 
-   의존성 주입방벙 (3) @RequiredArgsConstructor 이용한 방식
+
+
+    의존성 주입방벙 (3) @RequiredArgsConstructor 이용한 방식
     @RequiredArgsConstructor : @NonNull 어노테이션이 붙어있는 필드 또는
     초기화 되지 않은 final 필드를 대상으로 생성자 생성.
     @RequiredArgsConstructor // 클래스에
@@ -87,11 +94,15 @@ public class MemberController extends Print {
         return "/member/member-create";
     }
 
+
     @PostMapping("/member/create")   // Post 요청 데이터 바인딩.
-    public String postMemberCreate(MemberReqDto reqDto){
-        memberService.memberCreate(reqDto);
-//        url 리다이렉트
-        return "redirect:/members";
+    public String postMemberCreate(MemberReqDto reqDto)  {
+        try{
+            memberService.memberCreate(reqDto);
+            return "redirect:/members";
+        } catch (IllegalArgumentException e) {
+            return "404-error-page";
+        }
     }
 
 
@@ -108,12 +119,74 @@ public class MemberController extends Print {
         try {
             MemberResDto member = memberService.member(id);
             model.addAttribute("detail", member);
-        } catch (NoSuchFieldException e) {
+            return "/member/member-detail";
+        } catch (EntityNotFoundException e) {
             return "/404-error-page";
         }
-        return "/member/member-detail";
     }
+
+    @GetMapping("/member/delete")
+    public String delete(@RequestParam("id") int id){
+        try {
+            memberService.deleteMember(id);
+            return "redirect:/members";
+        } catch (EntityNotFoundException e) {
+            return "/404-error-page";
+        }
+    }
+
+    @PostMapping("/member/update")
+    public String update(MemberReqDto reqDto){
+        try {
+            MemberResDto resDto;
+            resDto = memberService.update(reqDto);
+            return "redirect:/member/find?id=" + resDto.getId();
+        } catch (EntityNotFoundException e) {
+            return "/404-error-page";
+        }
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -6,8 +6,8 @@
 
 
 #
-server:
-  port: 8081
+#server:
+#  port: 8081
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
@@ -21,12 +21,21 @@ spring:
 #    스키마는 사전생성 필요.
     generate-ddl: true
     hibernate:
-      ddl-auto: create
-    show-sql: true    # 쿼리문 실행시 쿼리가 console창에 보여지도록 설정.
+      ddl-auto: update
+    show-sql: true
+#      쿼리문 실행시 쿼리가 console창에 보여지도록 설정.
 #      create 옵션은 매번 table을 drop 후 생성
 #      update옵션은 변경사항만 alter를 적용
 #      validate는 실제 DB와의 차이만을 check
 #      실무에서는 update 또는 validate 사용
+
+
+
+
+mybatis: # 매퍼 파일의 위치를
+  mapper-locations: classpath:/mapper/**/*.xml
+
+
 
 
 #
