@@ -55,7 +55,8 @@ public class ResponseEntityController {
 
     @GetMapping("map_custom2")
     public static ResponseEntity<Map<String, Object>>
-        responseMessage(HttpStatus status, Object object) {
+    responseMessage(HttpStatus status, Object object) {
+
         Map<String, Object> map2 = new HashMap<>();
         Member member = new Member("John", "john@example.com", "password");
         map2.put("error message", member);
