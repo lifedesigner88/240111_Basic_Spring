@@ -45,7 +45,7 @@ public class ResponseEntityController {
     //    map 형태의 메시지 커스텀
     @GetMapping("map_custom1")
     public static ResponseEntity<Map<String, Object>>
-     errRsponseMessage(HttpStatus status, String message) {
+        errRsponseMessage(HttpStatus status, String message) {
         Map<String, Object> map = new HashMap<>();
         map.put("status", Integer.toString(status.value()));
         map.put("status message", status.getReasonPhrase());
@@ -80,6 +80,7 @@ public class ResponseEntityController {
         return ResponseEntity.status(HttpStatus.CREATED).body(member4);
     }
 }
+
 
 
 

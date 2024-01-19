@@ -27,13 +27,15 @@ public class HelloController extends Print {
     }
 
 
-//    Request 처리
-//    1-1) Paramiter
-//    1-2) path valuable 방식
+/*
+    Request 처리
+    1-1) Paramiter
+    1-2) path valuable 방식
 
-//    Respon 처리
-//    Json
-//    X-www 데이터 처리
+    Respon 처리
+    Json
+    X-www 데이터 처리
+*/
 
 
     @GetMapping("json")
@@ -158,8 +160,16 @@ public class HelloController extends Print {
 
 
 
+/*
 
+    jsp 사용하는 경우.
+    @GetMapping("/hello-servlet-jsp-get")
+    public String helloServlet (Model model){
+        model.addAttribute("myData", "jsp test data");
+        return "hello-jsp";
+    }
 
+*/
 
 
 

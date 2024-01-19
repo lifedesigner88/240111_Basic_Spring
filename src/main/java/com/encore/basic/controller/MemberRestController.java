@@ -1,5 +1,6 @@
 package com.encore.basic.controller;
 
+import Print.Print;
 import com.encore.basic.domain.MemberReqDto;
 import com.encore.basic.domain.MemberResDto;
 import com.encore.basic.service.MemberService;
@@ -8,22 +9,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/rest")
-public class MemberRestController {
+public class MemberRestController extends Print {
 
     private final MemberService memberService;
+
     public MemberRestController(MemberService memberService) {
         this.memberService = memberService;
     }
 
     @PostMapping("member/create")
-    public String postMemberCreate(@RequestBody MemberReqDto reqDto)  {
-            memberService.memberCreate(reqDto);
-            return "OK" ;
+    public String postMemberCreate(@RequestBody MemberReqDto reqDto) {
+        memberService.memberCreate(reqDto);
+        return "OK";
     }
 
     @GetMapping("members")            // 목록 조회
@@ -40,19 +43,35 @@ public class MemberRestController {
                     .responseMessage(HttpStatus.OK, memberResDto);
         } catch (EntityNotFoundException e) {
             return ResponseEntityController
-                    .errRsponseMessage(HttpStatus.NOT_FOUND,e.getMessage());
+                    .errRsponseMessage(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 
     @DeleteMapping("member/delete/{id}")
-    public String delete(@PathVariable int id){
-            memberService.deleteMember(id);
-            return "ok";
+    public String delete(@PathVariable int id) {
+        memberService.deleteMember(id);
+        return "ok";
     }
 
     @PatchMapping("/member/update")
-    public MemberResDto update(@RequestBody MemberReqDto reqDto){
-            return memberService.update(reqDto);
+    public MemberResDto update(@RequestBody MemberReqDto reqDto) {
+        return memberService.update(reqDto);
+    }
+
+    @PostMapping("httpservlet")
+    @ResponseBody
+    public String httpServletTest(HttpServletRequest req){
+//        HttpServelRequest객체에서 header 정보 추출
+        print(req.getContentType());
+        print(req.getMethod());
+//        session : 로그인(auth) 정보에서 필요한 정보값을 추출할 때 많이 사용
+        print("Se" + req.getSession());
+        print(req.getHeader("Accept"));
+
+//        httpSevletRequest 객체에서 body 정보 호출
+        print(req.getParameter("test1"));
+        print(req.getParameter("test2"));
+        return "OK";
     }
 
 }

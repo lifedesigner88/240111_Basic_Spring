@@ -45,6 +45,10 @@ dependencies {
 
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
 
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+//	 jstl 문법 사용시 의존성 추가
+//	implementation 'javax.servlet:jstl'
+
 }
 
 tasks.named('test') {
