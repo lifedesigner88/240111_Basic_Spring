@@ -4,6 +4,7 @@ import com.encore.basic.domain.MemberReqDto;
 import com.encore.basic.domain.MemberResDto;
 import com.encore.basic.repository.MemberRepository;
 import com.encore.basic.repository.SpringDataJpaMemberRopository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -19,8 +20,7 @@ import java.util.List;
 public class MemberService {
 
     private final MemberRepository repository;
-
-    public MemberService(SpringDataJpaMemberRopository repository) {
+    public MemberService(@Autowired SpringDataJpaMemberRopository repository) {
         this.repository = repository;
     }
 
@@ -58,7 +58,6 @@ public class MemberService {
                         .orElseThrow(EntityNotFoundException::new));
     }
 
-
     public MemberResDto update(MemberReqDto reqDto){
 
         return memberToDto(
@@ -70,8 +69,6 @@ public class MemberService {
                                         reqDto.getName(),
                                         reqDto.getPassword())));
     }
-
-
 
     private MemberResDto memberToDto(Member member){
         return new MemberResDto(

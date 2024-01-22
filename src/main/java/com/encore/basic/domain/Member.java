@@ -1,5 +1,4 @@
 package com.encore.basic.domain;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -38,7 +37,6 @@ public class Member {
     @UpdateTimestamp
     private LocalDateTime updateTime;
 
-
     public Member(String name, String email, String password) {
         this.name = name;
         this.email = email;
@@ -54,21 +52,3 @@ public class Member {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

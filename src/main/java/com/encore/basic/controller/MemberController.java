@@ -1,5 +1,4 @@
 package com.encore.basic.controller;
-
 import Print.Print;
 import com.encore.basic.domain.MemberReqDto;
 import com.encore.basic.domain.MemberResDto;
@@ -27,7 +26,6 @@ import java.util.List;
  * url:명 : -> Getmapping(member/create-screen), PostMapping(member/create-create-screen)
  * 화면 : member/member-create 화면은 form data 형식
  **/
-
 /*
     링크 => get member/find?id=2;
     1) resDTO에 id값 추가
@@ -56,10 +54,6 @@ public class MemberController extends Print {
     생성자가 1개 밖에 없을 때는 Autowired 생략 가능
 */
 
-
-
-
-
     private final MemberService memberService;
     public MemberController(@Autowired MemberService memberService) {
         this.memberService = memberService;
@@ -67,7 +61,7 @@ public class MemberController extends Print {
 
 /*
 
-    @Autowired
+//    @Autowired
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
@@ -88,12 +82,10 @@ public class MemberController extends Print {
     @GetMapping("/")                  // 페인페이지 크리에이트 페이지
     public String home(){return "/member/member-create";}
 
-
     @GetMapping("member/create")      // 생성 화면만 보여주는 페이지
     public String getCreateFrom() {
         return "/member/member-create";
     }
-
 
     @PostMapping("/member/create")   // Post 요청 데이터 바인딩.
     public String postMemberCreate(MemberReqDto reqDto)  {
@@ -105,14 +97,12 @@ public class MemberController extends Print {
         }
     }
 
-
     @GetMapping("members")            // 목록 조회
     public String getMembers(Model model) {
         List<MemberResDto> members = memberService.members();
         model.addAttribute("memberList", members);
         return "/member/member-list";
     }
-
 
     @GetMapping("/member/find")         // 디테일 화면 보여주기
     public String forDetail(@RequestParam("id") int id, Model model) {
@@ -147,49 +137,3 @@ public class MemberController extends Print {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
