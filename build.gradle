@@ -49,6 +49,8 @@ dependencies {
 //	 jstl 문법 사용시 의존성 추가
 //	implementation 'javax.servlet:jstl'
 
+
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 }
 
 tasks.named('test') {

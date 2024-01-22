@@ -17,7 +17,15 @@ spring:
 #      prefix: /WEB-INF/views/
 #      suffix: .jsp
 
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+#      // http://localhost:8080/swagger-ui/ 접속할 때 마지막 / 중요
 
+
+
+  # springboot.24 이상에서는 기본적으로 path patternpareser를 사용하고 있는데
+#  이는 이전버전과 다른 경로매칭 규칙을 가지고 있어, springfox와 같은 일부 라이브러리에서는 문제 발생
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://localhost:3306/basic
