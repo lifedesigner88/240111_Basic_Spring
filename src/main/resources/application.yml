@@ -6,8 +6,8 @@
 
 
 #
-#server:
-#  port: 8081
+server:
+  port: 8081
 spring:
 #
 ##  컨트롤러와 jsp사용시에 접두어, 접미어 설정.
